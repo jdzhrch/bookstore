@@ -3,11 +3,13 @@ package service.impl;
 import dao.BookDao;
 import dao.OrderDao;
 import dao.OrderitemDao;
+import dao.StatisticDao;
 import dao.UserDao;
 import java.util.List;
 import model.Book;
 import model.Order;
 import model.Orderitem;
+import model.Statistic;
 import model.User;
 import service.AppService;
 
@@ -18,6 +20,7 @@ public class AppServiceImpl
   private OrderDao orderDao;
   private OrderitemDao orderitemDao;
   private UserDao userDao;
+  private StatisticDao statisticDao;
   
   public void setBookDao(BookDao bookDao)
   {
@@ -178,4 +181,32 @@ public class AppServiceImpl
   {
     return this.userDao.checkUsername(username);
   }
+
+public StatisticDao getStatisticDao() {
+	return statisticDao;
+}
+
+public void setStatisticDao(StatisticDao statisticDao) {
+	this.statisticDao = statisticDao;
+}
+
+public List<Statistic> allByBook() {
+	return this.statisticDao.allByBook();
+}
+
+public List<Statistic> allByStartDate() {
+	return this.statisticDao.allByStartDate();
+}
+
+public List<Statistic> allByEndDate() {
+	return this.statisticDao.allByEndDate();
+}
+
+public List<Statistic> allByUser() {
+	return this.statisticDao.allByUser();
+}
+
+public List<Statistic> allByCategory() {
+	return this.statisticDao.allByCategory();
+}
 }

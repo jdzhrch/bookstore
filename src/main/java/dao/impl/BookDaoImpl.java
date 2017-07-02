@@ -1,8 +1,13 @@
 package dao.impl;
 
 import dao.BookDao;
+
+import java.util.Date;
 import java.util.List;
 import model.Book;
+import model.Statistic;
+
+import org.hibernate.Query;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 

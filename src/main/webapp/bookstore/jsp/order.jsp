@@ -60,6 +60,8 @@
 							class="fa fa-reorder fa-fw"></i> Orders</a></li>
 					<li><a href="allOrderitemPro"><i
 							class="fa fa-table fa-fw"></i> Orderitems</a></li>
+					<li><a href="allByBookTotalStatisticPro"><i
+							class="fa fa-signal fa-fw"></i> Sales Statistics</a></li>
 				</ul>
 			</div>
 			<!-- /.sidebar-collapse -->

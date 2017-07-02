@@ -57,7 +57,7 @@ String path = request.getContextPath();
                 	if(account != null){
                 		if(account.getRole().equals("admin")){
                 %>
-                			<li><a href="allUserPro">CRUD <span class="indicator"><i class="fa fa-angle-right"></i></span></a></li>
+                			<li><a href="allUserPro">Backstage <span class="indicator"><i class="fa fa-angle-right"></i></span></a></li>
                <%
                 		}
                 %>

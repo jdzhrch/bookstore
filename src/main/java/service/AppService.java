@@ -4,6 +4,7 @@ import java.util.List;
 import model.Book;
 import model.Order;
 import model.Orderitem;
+import model.Statistic;
 import model.User;
 
 public abstract interface AppService
@@ -63,4 +64,14 @@ public abstract interface AppService
   public abstract List<User> getAllUsers();
   
   public abstract boolean checkUsername(String paramString);
+  
+  public abstract List<Statistic> allByBook();
+  
+  public abstract List<Statistic> allByStartDate();
+  
+  public abstract List<Statistic> allByEndDate();
+  
+  public abstract List<Statistic> allByUser();
+  
+  public abstract List<Statistic> allByCategory();
 }

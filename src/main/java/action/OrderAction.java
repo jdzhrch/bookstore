@@ -162,4 +162,10 @@ public class OrderAction
     order.setEnddate(this.enddate);
     this.appService.updateOrder(order);
   }
+  
+  public String showStatistics()
+    throws Exception
+  {
+	  return "statistics";
+  }
 }

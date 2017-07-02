@@ -60,6 +60,9 @@
 	<bean id="userDao" class="dao.impl.UserDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	<bean id="statisticDao" class="dao.impl.StatisticDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 
 	<!-- Service -->
 	<bean id="appService" class="service.impl.AppServiceImpl">
@@ -68,6 +71,7 @@
 		<property name="orderDao" ref="orderDao"></property>
 		<property name="orderitemDao" ref="orderitemDao"></property>
 		<property name="userDao" ref="userDao"></property>
+		<property name="statisticDao" ref="statisticDao"></property>
 	</bean>
 
 	<!-- HibernateTransactionManager -->

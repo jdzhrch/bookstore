@@ -186,8 +186,6 @@ public class BookAction
     throws Exception
   {
     Book book = this.appService.getBookById(this.id);
-    response().setCharacterEncoding("UTF-8");
-    response().setContentType("application/json; charset=utf-8");
     JSONObject responseJSONObject = JSONObject.fromObject(book);
     response().getWriter().append(responseJSONObject.toString());
   }
