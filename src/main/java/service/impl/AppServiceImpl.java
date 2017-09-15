@@ -1,11 +1,18 @@
 package service.impl;
 
 import dao.BookDao;
+import dao.MongoDao;
 import dao.OrderDao;
 import dao.OrderitemDao;
 import dao.StatisticDao;
 import dao.UserDao;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+
+import com.mongodb.gridfs.GridFSDBFile;
+
 import model.Book;
 import model.Order;
 import model.Orderitem;
@@ -21,6 +28,7 @@ public class AppServiceImpl
   private OrderitemDao orderitemDao;
   private UserDao userDao;
   private StatisticDao statisticDao;
+  private MongoDao mongoDao;
   
   public void setBookDao(BookDao bookDao)
   {
@@ -32,6 +40,14 @@ public class AppServiceImpl
     this.orderDao = orderDao;
   }
   
+	public MongoDao getMongoDao() {
+		return mongoDao;
+	}
+	
+	public void setMongoDao(MongoDao mongoDao) {
+		this.mongoDao = mongoDao;
+	}
+
   public void setOrderitemDao(OrderitemDao orderitemDao)
   {
     this.orderitemDao = orderitemDao;
@@ -209,4 +225,17 @@ public List<Statistic> allByUser() {
 public List<Statistic> allByCategory() {
 	return this.statisticDao.allByCategory();
 }
+
+public void savePicture(String fileName, File imageFile) throws IOException {
+	mongoDao.savePicture(fileName, imageFile);
+}
+
+public void deletePicture(String fileName) {
+	mongoDao.deletePicture(fileName);
+}
+
+public GridFSDBFile getPicture(String fileName) {
+	return mongoDao.getPicture(fileName);
+}
+
 }

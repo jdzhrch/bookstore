@@ -1,3 +1,5 @@
+
+
 function deal(){
     //implement the synchronous submission of two forms
     var id = $("#book_id").val();

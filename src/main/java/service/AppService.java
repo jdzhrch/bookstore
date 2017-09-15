@@ -1,6 +1,11 @@
 package service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+
+import com.mongodb.gridfs.GridFSDBFile;
+
 import model.Book;
 import model.Order;
 import model.Orderitem;
@@ -74,4 +79,10 @@ public abstract interface AppService
   public abstract List<Statistic> allByUser();
   
   public abstract List<Statistic> allByCategory();
+	
+	public void savePicture(String fileName,File imageFile)throws IOException;
+	
+	public void deletePicture(String fileName);
+	
+	public GridFSDBFile getPicture(String fileName);
 }

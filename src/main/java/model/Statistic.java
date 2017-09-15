@@ -4,11 +4,11 @@ package model;
 public class Statistic {
 	private String criteria;
 	private int number;
-	private int amount;
+	private double amount;
 	
 	public Statistic(){}
 	
-	public Statistic(String criteria, int number, int amount) {
+	public Statistic(String criteria, int number, double amount) {
 		super();
 		this.criteria = criteria;
 		this.number = number;
@@ -27,10 +27,10 @@ public class Statistic {
 	public void setNumber(int number) {
 		this.number = number;
 	}
-	public int getAmount() {
+	public double getAmount() {
 		return amount;
 	}
-	public void setAmount(int amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 

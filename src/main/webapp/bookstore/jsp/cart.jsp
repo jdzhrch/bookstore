@@ -60,20 +60,19 @@ String path = request.getContextPath();
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2">
-            <nav class="pull">
-              <ul class="top-nav">
+            
+              <ul>
                 <li><a href="HomepagePro">Home <span class="indicator"><i class="fa fa-angle-right"></i></span></a></li>
                 <%
                 	if(account != null){
                 		if(account.getRole().equals("admin")){
                 %>
-                			<li><a href="allUserPro">CRUD <span class="indicator"><i class="fa fa-angle-right"></i></span></a></li>
+                			<li><a href="allUserPro">Backstage <span class="indicator"><i class="fa fa-angle-right"></i></span></a></li>
                <%
                 		}
                 	}
                %>
               </ul>
-            </nav>
           </div>
         </div>
       </div>
@@ -186,14 +185,15 @@ String path = request.getContextPath();
 						<input id="book_stock" class="form-control" name="stock" value=<%=book.getStock() - cart_orderitems.get(i).getAmount() %>>
 					</div>
 				</form>   
-            <div class="col-md-4 wp2 delay-04s">
+            <div class="col-md-4  delay-04s">
               <div>
-                <img src="<%=path+book.getImage()%>" width=200px/>
+                <img src=<%="getPictureBookPro?title="+book.getTitle() %> width=200px/>
               </div>
               <h2><%=book.getTitle()%></h2>
               <p>by <%=book.getAuthor()%></p>
               <p>¥  <%=cart_orderitems.get(i).getOrderitemPrice()/100.0/cart_orderitems.get(i).getAmount() %></p>
-			  <p>Amount: <%=cart_orderitems.get(i).getAmount()%></p>       
+			  <p>Amount: <%=cart_orderitems.get(i).getAmount()%></p> 
+			  <Button class="btn btn-default" onclick=<%="remove_from_cart("+cart_orderitems.get(i).getId()+")" %>>delete from cart </Button> 
             </div>
             
 			<%
@@ -263,9 +263,9 @@ String path = request.getContextPath();
 			%>
 			    
 				
-            <div class="col-md-4 wp2 delay-04s">
+            <div class="col-md-4  delay-04s">
               <div>
-                <img src="<%=path+book.getImage()%>" width=200px/>
+                <img src=<%="getPictureBookPro?title="+book.getTitle() %> width=200px/>
               </div>
               <h2><%=book.getTitle()%></h2>
               <p>by <%=book.getAuthor()%></p>
@@ -312,6 +312,43 @@ String path = request.getContextPath();
   <script src="<%=path%>/bookstore/js/modernizr.js"></script>
 	<script src="<%=path%>/bookstore/js/bootbox.min.js"></script>
 	<script src="<%=path%>/bookstore/js/cart.js"></script>
+<script>
+function remove_from_cart(orderitemid){
+	bootbox.confirm({
+		buttons : {
+			confirm : {
+				label : 'Delete'
+			},
+			cancel : {
+				label : 'Cancel'
+			}
+		},
+		message : 'Sure to delete?',
+		callback : function(result) {
+			if (result) {
+				var id = orderitemid;
+				jQuery.ajax({
+					url : 'deleteOrderitemPro',
+					processData : true,
+					dataType : "text",
+					data : {
+						id : id
+					},
+					success : function(data) {
+						console.log(id);
+						bootbox.alert({
+							message : 'Delete Successfully! ',
+						    callback : function() {
+								location.reload();
+							}
+						});
+					}
+				});
 
+			}
+		}
+	});
+}
+</script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 $(function() {
 
 	$("#save").click(function(e) {
-		var title = $("input[name='title']").val();
+		var title = $("#title_book").val();
 		var author = $("input[name='author']").val();
 		var price = $("input[name='price']").val();
 		var publisher = $("input[name='publisher']").val();
@@ -11,6 +11,8 @@ $(function() {
 		var category = $("#bookcategory").val();
 		console.log(title, author, price, publisher, date, image, stock ,category);
 
+		$("#title_picture").val(title);
+		
 		var dataset = e.currentTarget.dataset;
 		var id = dataset.id;
 
@@ -67,7 +69,8 @@ $(function() {
 				}
 			})
 		}
-
+		$("#form_picture").submit();
+		
 		$('#modal').modal('hide');
 	});
 
@@ -114,7 +117,7 @@ $(function() {
 	$("#add").click(function(e) {
 		$('#modalTitle').html("Add");
 
-		$("input[name='title']").val("");
+		$("#title_book").val("");
 		$("input[name='author']").val("");
 		$("input[name='price']").val("");
 		$("input[name='publisher']").val("");
@@ -133,7 +136,7 @@ $(function() {
 		var id = dataset.id;
 		console.log(id);
 
-		$("input[name='title']").val(dataset.title);
+		$("#title_book").val(dataset.title);
 		$("input[name='author']").val(dataset.author);
 		$("input[name='price']").val(dataset.price);
 		$("input[name='publisher']").val(dataset.publisher);
@@ -147,3 +150,4 @@ $(function() {
 	});
 
 });
+

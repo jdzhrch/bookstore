@@ -47,18 +47,7 @@ function add(form_id){
 		$('#modal'+form_id).modal('hide');
 }
 
-function numberCheck(t){
-    var num = t.value;
-    var re=/^\d*$/;
-	document.getElementById("add_button").disabled=false;
-    if(!re.test(num)){
-        isNaN(parseInt(num))?t.value=0:t.value=parseInt(num);
-		document.getElementById("add_button").disabled=true;
-    }
-    if(num <= 0){
-		document.getElementById("add_button").disabled=true;
-    }
-}
+
 
 function showDetails(book_id){
     

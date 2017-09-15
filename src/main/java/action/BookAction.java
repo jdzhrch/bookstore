@@ -1,10 +1,16 @@
 package action;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.mongodb.gridfs.GridFSDBFile;
+
 import model.Book;
 import net.sf.json.JSONObject;
 import service.AppService;
@@ -22,6 +28,7 @@ public class BookAction
   private String image;
   private int stock;
   private String category;
+  private File imageFile;
   private AppService appService;
   
   public int getId()
@@ -114,6 +121,16 @@ public class BookAction
     this.category = category;
   }
   
+  public File getImageFile()
+  {
+    return this.imageFile;
+  }
+  
+  public void setImageFile(File imageFile)
+  {
+    this.imageFile = imageFile;
+  }
+  
   public void setAppService(AppService appService)
   {
     this.appService = appService;
@@ -124,8 +141,9 @@ public class BookAction
   {
     Book book = new Book(this.title, this.author, this.price, this.publisher, this.date, this.image, this.stock, this.category);
     this.appService.addBook(book);
+    //this.appService.savePicture(title, imageFile);
     
-    return "success";
+    return "back";
   }
   
   public String all()
@@ -142,6 +160,7 @@ public class BookAction
   {
     Book book = this.appService.getBookById(this.id);
     this.appService.deleteBook(book);
+    this.appService.deletePicture(book.getTitle());
     
     return "success";
   }
@@ -159,8 +178,8 @@ public class BookAction
     book.setStock(this.stock);
     book.setCategory(this.category);
     this.appService.updateBook(book);
-    
-    return "success";
+    //this.appService.savePicture(title, imageFile);
+    return "back";
   }
   
   public String deal()
@@ -186,7 +205,23 @@ public class BookAction
     throws Exception
   {
     Book book = this.appService.getBookById(this.id);
+    response().setCharacterEncoding("UTF-8");
+    response().setContentType("application/json; charset=utf-8");
     JSONObject responseJSONObject = JSONObject.fromObject(book);
     response().getWriter().append(responseJSONObject.toString());
+  }
+  
+  public void getPicture()throws IOException{
+		GridFSDBFile gridFSDBFile=appService.getPicture(title);
+		OutputStream sos =response().getOutputStream();
+		response().setContentType("image/png");
+		gridFSDBFile.writeTo(sos); 
+		sos.flush();
+		sos.close();
+  }
+  
+  public String savePicture()throws IOException{
+	  this.appService.savePicture(title, imageFile);
+	  return "back";
   }
 }

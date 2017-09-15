@@ -49,8 +49,8 @@ String path = request.getContextPath();
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2">
-            <nav class="pull">
-              <ul class="top-nav">
+            
+              <ul>
                 <li><a href="#intro">Home <span class="indicator"><i class="fa fa-angle-right"></i></span></a></li>
                 <li><a href="#books">Books <span class="indicator"><i class="fa fa-angle-right"></i></span></a></li>
                 <%
@@ -93,12 +93,11 @@ String path = request.getContextPath();
 						</form>  
 		        </li>
               </ul>
-            </nav>
           </div>
         </div>
       </div>
     </nav>
-    <section class="hero" id="hero">
+    <section class="hero" id="intro">
       <div class="container">
         <div class="row" >
         <%
@@ -190,14 +189,14 @@ String path = request.getContextPath();
 								<label>amount</label>
 								<div class="form-group" >
 									<input class="form-control" id=<%="orderitem_amount"+i %> name="amount" value="please input an positive integer" 
-											onfocus="if (value =='please input an positive integer'){value =''}" onblur="numberCheck(this)">
+											onfocus="if (value =='please input an positive integer'){value =''}" onblur=<%="numberCheck(this,"+i+")" %>>
 								</div>
 							</form>  
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button id="add_button" type="button" class="btn btn-primary" onclick=<%="javascript:add("+i+")"%>>Add</button>
+					<button id=<%="add_button"+i %> type="button" class="btn btn-primary" onclick=<%="javascript:add("+i+")"%>>Add</button>
 				</div>
 			</div>
 		</div>
@@ -206,9 +205,9 @@ String path = request.getContextPath();
 			<%
 				}
 			%>
-            <div class="col-md-4 wp2 delay-04s">
+            <div class="col-md-4  delay-04s">
               <div>
-                <img onclick=<%="showDetails("+book.getId()+")"%> src="<%=path+book.getImage()%>" width=200px/>
+                <img onclick=<%="showDetails("+book.getId()+")"%> src=<%="getPictureBookPro?title="+book.getTitle() %> width=200px/>
               </div>
               <h2><%=book.getTitle()%></h2>
               <p><%="by "+book.getAuthor()%></p>
@@ -355,6 +354,18 @@ String path = request.getContextPath();
   <script src="<%=path%>/bookstore/js/modernizr.js"></script>
   <script src="<%=path%>/bookstore/js/bootbox.min.js"></script>
   <script src="<%=path%>/bookstore/js/homepage.js"></script>
-
+<script>
+function numberCheck(t,i){
+    var num = t.value;
+    var re=/^\d*$/;
+	document.getElementById("add_button"+i).disabled=false;
+    if(!re.test(num)){
+        isNaN(parseInt(num))?t.value=0:t.value=parseInt(num);
+		document.getElementById("add_button"+i).disabled=true;
+    }
+    if(num <= 0){
+		document.getElementById("add_button"+i).disabled=true;
+    }
+}</script>
 </body>
 </html>

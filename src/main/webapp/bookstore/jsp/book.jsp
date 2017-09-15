@@ -106,7 +106,7 @@
 											<td><%=book.getPrice()/100.0%></td>
 											<td><%=book.getPublisher()%></td>
 											<td><%=book.getDate()==null?null:bartDateFormat.format((Date)book.getDate()) %></td>
-											<td align="center"><img src="<%=path+book.getImage()%>" width=100px/></td>
+											<td align="center"><img src=<%="getPictureBookPro?title="+book.getTitle() %> width=100px/></td>
 											<td><%=book.getStock()%></td>
 											<td><%=book.getCategory()%></td>
 											<td>
@@ -162,34 +162,34 @@
 						<div class="col-lg-12">
 							<form role="form">
 								<div class="form-group">
-									<label>Title</label> <input class="form-control" name="title">
+									<label>Title</label> <input onblur="checkInfo()" id="title_book" class="form-control" name="title">
 								</div>
 								<div class="form-group">
-									<label>Author</label> <input class="form-control" name="author">
+									<label>Author</label> <input onblur="checkInfo()" class="form-control" name="author">
 								</div>
 								<div class="form-group">
-									<label>Price</label> <input class="form-control" type="number"
+									<label>Price</label> <input onblur="checkInfo()" class="form-control" type="number"
 										step="0.01" name="price">
 								</div>
 								<div class="form-group">
-									<label>Publisher</label> <input class="form-control"
+									<label>Publisher</label> <input onblur="checkInfo()" class="form-control"
 										name="publisher">
 								</div>
 								<div class="form-group">
-									<label>Date</label> <input class="form-control" type="date"
+									<label>Date</label> <input onblur="checkInfo()" class="form-control" type="date"
 										name="date">
 								</div>
-								<div class="form-group">
-									<label>Image</label> <input class="form-control"
+								<div class="form-group" hidden="true">
+									<label>Image</label> <input onblur="checkInfo()" class="form-control"
 										name="image">
 								</div>
 								<div class="form-group">
-									<label>stock</label> <input class="form-control" type="number"
+									<label>stock</label> <input onblur="checkInfo()" class="form-control" type="number"
 										step="1" name="stock">
 								</div>
 								<div class="form-group">
 									<label>category</label>
-									<select class="form-control" id="bookcategory">
+									<select onblur="checkInfo()" class="form-control" id="bookcategory">
 										<option value="History">History</option>
 										<option value="Literature">Literature</option>
 										<option value="Art">Art</option>
@@ -197,10 +197,19 @@
 									</select>
 								</div>
 							</form>
+							<form id="form_picture" method="post" action="savePictureBookPro" enctype="multipart/form-data" >
+								<div class="form-group" hidden="true">
+									<label>Title</label> <input id="title_picture"class="form-control" name="title">
+								</div>
+								<div class="form-group">
+									<label>Picture</label> <input id="imageFile" onblur="checkInfo()" type="file" class="form-control" name="imageFile">
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
+					<h4 id="checkInfoResult" hidden="true">wrong information</h4>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					<button type="button" class="btn btn-primary" id="save">Save</button>
 				</div>
@@ -223,6 +232,23 @@
 				responsive : true
 			});
 		});
+		function checkInfo(){
+			if($("#title_book").val()==null||
+			$("input[name='author']").val()==null||
+			$("input[name='price']").val()==null||$("input[name='price']").val()<0||
+			$("input[name='publisher']").val()==null||
+			$("input[name='date']").val()==null||
+			$("input[name='image']").val()==null||
+			$("input[name='stock']").val()==null||$("input[name='stock']").val()<0||
+			$("#bookcategory").val()==null||
+			$("#imageFile").val().length==0){
+				document.getElementById("save").disabled=true;
+				document.getElementById("checkInfoResult").hidden=false;
+			} else {
+				document.getElementById("save").disabled=false;
+				document.getElementById("checkInfoResult").hidden=true;
+			}
+		}
 	</script>
 
 </body>
